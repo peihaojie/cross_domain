@@ -1,7 +1,7 @@
 /*
  * @Date         : 2020-06-10 20:32:52
  * @LastEditors  : HaoJie
- * @LastEditTime : 2020-06-10 20:58:50
+ * @LastEditTime : 2020-06-11 13:36:34
  * @FilePath     : \vue_cli4\src\ts\app.ts
  */
 import { Component, Vue } from "vue-property-decorator";
@@ -18,9 +18,9 @@ export default class App extends Vue {
   }
 
   mounted() {
-    this.home = this.store.count
+    this.home = this.store.count;
     setTimeout(() => {
-      this.store.add()
+      this.store.add();
       this.home = this.store.count;
     }, 1000);
   }
