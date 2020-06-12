@@ -1,0 +1,76 @@
+#security-log-wrap(class="security-log-wrap")
+    .page-main
+        .left-tree(class="border-right")
+            .tree-filter
+                el-input(placeholder="搜索关键字", v-model="treeFilterText", @keyup.native="treeFilter()")
+            el-tree(
+                :data="treeNode",
+                :props="defaultProps",
+                @node-click="handleNodeClick",
+                :filter-node-method="filterNode",
+                highlight-current,
+                ref="tree")
+                span(class="span-ellipsis" slot-scope="{ node, data }")
+                    span(:title="node.label") {{ node.label }}
+        .table-box
+            .table-filter(class="border-bottom")
+                .create-date
+                    .label 创建时间：&nbsp;
+                    .date-picker-wrap
+                        el-date-picker(type="date", style="width: 100%;" placeholder="起始日期", format="yyyy-MM-dd", size="small", :editable="false", v-model="startDate")
+                    .label &nbsp;至&nbsp;
+                    .date-picker-wrap
+                        el-date-picker(type="date", style="width: 100%;" placeholder="结束日期", format="yyyy-MM-dd", size="small", :editable="false", v-model="endDate")
+                .safety-officer
+                    .label 安全员：&nbsp;
+                    .input-box
+                        el-input(v-model="createBy", prefix-icon="el-icon-search", size="small", style="width: 100%;")
+                .search-btn
+                    el-button(class="small-btn", type="primary", icon="el-icon-search", @click="getSecurityLogList(1)") 搜索
+            el-table(class="list", :data="tableData", size="small", stripe, border, style="width: 100%;", align="center")
+                el-table-column(label="创建时间", prop="createOn", align="center")
+                el-table-column(label="安全员", prop="createBy", align="center")
+                el-table-column(label="检查记录", align="center", :formatter="(row, col) => `${row.total || 0}条`")
+                el-table-column(label="天气", prop="theWeather", align="center")
+                el-table-column(label="操作", align="center")
+                    template(slot-scope="scope")
+                        span.curp.text-blue(@click="watchRecord(scope.row)") 查看
+            el-pagination(
+                class="pagination",
+                :page-size="10",
+                :total="total",
+                :current-page="currentPage",
+                @current-change="cur => getSecurityLogList(cur)",
+                hide-on-single-page,
+                layout="prev, pager, next, jumper")
+
+    el-dialog.safe-detail-dialog(:visible.sync="showDialog", width="70%")
+        .top.ovh.border-top
+            .name.fl.mr05rem 姓名：{{dialogMan}}
+            .date.fl 日期：{{dialogData.createOn}}
+            .weather.fr 天气：{{dialogData.theWeather}}
+            .air-temperature.fr.mr05rem 气温：{{dialogData.airTemperature}}
+            .wind-power.fr.mr05rem 风力：{{dialogData.windPower}}
+        .middle
+            .caption.border-top 安全巡检记录
+            .table
+                el-table(:data="hiddenDangerRecordList", size="small", stripe, border, style="width: 100%;", align="center", height="2rem")
+                    el-table-column(label="检查人", prop="checker", align="center")
+                    el-table-column(label="检查结果", :formatter="(row, col) => ['待整改', '合格', '待复查'][row.testResult]", align="center")
+                    el-table-column(label="项目名称", prop="projectName", align="center")
+                    el-table-column(label="隐患信息", prop="hiddenDangerInformation", align="center")
+                    el-table-column(label="工区", prop="workArea", align="center")
+                    el-table-column(label="整改人", prop="corrector", align="center")
+                    el-table-column(label="复查人", prop="reviewer", align="center")
+                    el-table-column(label="检查类型", :formatter="(row, col) => ['日常记录', '隐患记录'][row.inspectionType]", align="center")
+        .bottom
+            .item.fl 施工内容分项工程：{{dialogData.subProject}}
+            .item.fl 施工内容作业面：{{dialogData.workingSurface}}
+            .item.fl 施工作业班组：{{dialogData.workingTeam}}
+            .item.fl 施工作业人员：{{dialogData.workingPersonnel}}
+            .item.fl 施工作业进度情况：{{dialogData.workingSchedule}}
+            .item.fl 设施用品进场记录：{{dialogData.entryRecord}}
+            .item.fl 设备设施、施工用电、“三宝、四口”防护情况：{{dialogData.protectionSituation}}
+            .item.fl 设备验收情况：{{dialogData.acceptance}}
+            .item.clear.width-full 违章操作、事故隐患（或未逐事故）发生的原因、处理意见和处理方法：{{dialogData.approach}}
+            .item.width-full 其他情况：{{dialogData.otherSituations}}

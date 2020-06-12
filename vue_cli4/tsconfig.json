@@ -18,7 +18,20 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "assets": ["/assets/*"],
+      "common": ["/common/*"],
+      "components": ["/components/*"],
+      "pages": ["/pages/*"],
+      "request": ["/request/*"],
+      "router": ["/router/*"],
+      "store": ["/store/*"],
+      "styles": ["/styles/*"],
+      "views": ["/views/*"],
+      "static": ["../static/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
@@ -29,32 +42,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "baseUrl": "./src",
-  "paths": {
-    "@/*": [
-      "/*"
-    ],
-    "assets/*": [
-      "/assets/*"
-    ],
-    "components/*": [
-      "/components/*"
-    ],
-    "router/*": [
-      "/router/*"
-    ],
-    "store/*": [
-      "/store/*"
-    ],
-    "views/*": [
-      "/views/*"
-    ],
-    "static/*": [
-      "/static/*"
-    ],
-    "utils/*": [
-      "/utils/*"
-    ]
-  }
+  ]
 }

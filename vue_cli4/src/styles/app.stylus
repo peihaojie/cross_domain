@@ -1,0 +1,94 @@
+border-color = #ddd
+font-size-14 = 0.14rem;
+font-size-16 = 0.16rem;
+html
+  height 100%
+  body
+    height 100%
+    font-size .14rem
+    *
+      padding 0
+      margin 0
+    #app
+      height 100%
+      min-width 16rem
+      height 100%
+      color #3a
+
+      // 公共样式
+      .border-all
+        border: 1px solid border-color !important;
+      .border-top
+        border-top: 1px solid border-color !important;
+      .border-right
+        border-right: 1px solid border-color !important;
+      .border-bottom
+        border-bottom: 1px solid border-color !important;
+      .border-left
+        border-left: 1px solid border-color !important;
+      .ovh
+        overflow: hidden !important;
+      .fl
+        float: left;
+      .fr
+        float: right;
+      .tac
+        text-align: center;
+      .clear
+        clear: both;
+      .curp
+        cursor: pointer;
+      .text-blue
+        color: #409EFF;
+      .text-blue:hover
+        color: #66b1ff;
+      .text-red
+        color: #F56C6C;
+      .text-red:hover
+        color: #f78989;
+      
+      // 修改element-ui样式
+      .el-pagination
+        text-align center
+      .el-button
+        height: 0.32rem !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      .el-input
+        input[type="text"]
+          height: 0.32rem !important;
+          line-height: 0.32rem !important;
+      .el-table
+        font-size: 0.16rem;
+        th
+          background-color: #c5e8ff !important;
+          color: #4a4a4a !important;
+          font-weight: normal;
+      .el-dialog__body,.el-checkbox,.el-checkbox__label,.el-input
+        font-size: font-size-14;
+      .el-button+.el-button
+        margin-left: 0.1rem;
+        font-size: font-size-14;
+      .el-pager li, .el-pagination button, .el-pagination span:not([class*=suffix])
+        font-size: 0.13rem;
+        height: 0.28rem;
+        line-height: 0.28rem;
+        padding: 0 0.04rem;
+        min-width: 0.355rem;
+      .el-pagination
+        padding: 0.02rem 0.05rem;
+      .el-pagination__editor
+        height: 0.28rem;
+        line-height: 0.18rem;
+        margin: 0 0.02rem;
+      .el-pagination__editor.el-input
+        width: 0.5rem;
+        .el-input__inner
+          height: 0.28rem;
+      .el-input__icon
+        line-height: 0.32rem;
+      .el-tree--highlight-current
+        .el-tree-node.is-current>.el-tree-node__content
+          background-color: #409eff;
+          color: #fff;
+          

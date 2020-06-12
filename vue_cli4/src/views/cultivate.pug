@@ -1,0 +1,47 @@
+#cultivate
+  .tree-wrap
+    .button
+    el-input(v-model="state" placeholder="请输入搜索类别" style="width: 100%" size="small" clearable)
+      template(slot="append")
+        i.el-icon-search
+    el-tree(ref="attrList" :data="store.store.state.CultivateStore.tree" :props="defaultProps" @node-click="handleNodeClick" highlight-current)
+      span(class="span-ellipsis" slot-scope="{ node, data }")
+        span(:title="node.label") {{ node.label }}
+  .data-wrap
+    .statistics
+    .table-search
+      div
+        span 交底时间:
+        el-date-picker(v-model="searchTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="small" clearable)
+        span 交底类型:
+        el-select(v-model="searchType" placeholder="请选择" style="width: 200px" size="small" clearable)
+          el-option(v-for="item in searchTypeList" :key="item.value" :label="item.label" :value="item.value")
+        span 交底级别:
+        el-select(v-model="searchGrade" placeholder="请选择" style="width: 200px" size="small" clearable)
+          el-option(v-for="item in searchGradeList" :key="item.value" :label="item.label" :value="item.value")
+      div
+        el-button(type="primary" size="small" @click="getTable") 搜索
+    .table-wrap
+      el-table(ref="table" :data="table" tooltip-effect="dark" style="width: 100%" :header-row-class-name="headerRow" :header-cell-class-name="headerRow" :cell-class-name="cell" border)
+        el-table-column(type="selection" width="55")
+        el-table-column(prop="createOn" label="交底日期" show-overflow-tooltip)
+        el-table-column(prop="projectName" label="项目名称" show-overflow-tooltip)
+        el-table-column(prop="disclosureName" label="交底名称" show-overflow-tooltip)
+        el-table-column(prop="disclosureTypeName" label="交底类型" show-overflow-tooltip)
+        el-table-column(prop="disclosureLevelName" label="交底级别" show-overflow-tooltip)
+        el-table-column(prop="summary" label="纪要" show-overflow-tooltip)
+        el-table-column(prop="creator" label="发起人" show-overflow-tooltip)
+        el-table-column(label="交底映像" show-overflow-tooltip)
+          template(slot-scope="scope")
+            p.btn(@click="getDialog(scope.row)") 查看
+    .page-wrap
+      el-pagination(@current-change="handleCurrentChange" :current-page="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total")
+  .add
+    el-dialog(:visible.sync="dialog" width="70%")
+      p 交底日期： {{dialogData.createOn}}
+      p 交底类型： {{dialogData.disclosureTypeName}}
+      p 发起人： {{dialogData.creator}}
+      .title
+        p 现场照片
+      .img-wrap
+        img(:src="dialogData.scenePhoto", alt="")

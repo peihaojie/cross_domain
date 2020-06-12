@@ -1,0 +1,83 @@
+#homePage
+  .left
+    .usage-rate(class="shadow")
+      p.title 项目使用率
+      .radio
+        el-radio-group(v-model="usageRateRadio" @change="getUsageRateData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .usage-rate-chart(ref="usageRate")
+      .project
+        p.on 使用项目：{{usageOn}}
+        p.off 未使用项目：{{usageOff}}
+    .troubleshoot(class="shadow")
+      p.title 排查情况
+      .troubleshoot-item
+        .top
+          .total
+            p 检查总数 {{company.examine}}
+            p 隐患总数 {{company.danger}}
+            p 重大隐患 {{company.great}}
+          .percent
+            p.name 企业
+            p.percent-num {{company.reform}} %
+            p.reform 整改率
+        el-progress(:text-inside="true" :stroke-width="20" :percentage="parseFloat(company.reform)")
+        .compare
+          span 周同比
+            i.el-icon-caret-top
+            span {{company.week}}%
+          span 日环比
+            i.el-icon-caret-bottom
+            span {{company.month}}%
+      .troubleshoot-item
+        .top
+          .total
+            p 检查总数 {{project.examine}}
+            p 隐患总数 {{project.danger}}
+            p 重大隐患 {{project.great}}
+          .percent
+            p.name 项目
+            p.percent-num {{project.reform}} %
+            p.reform 整改率
+        el-progress(:text-inside="true" :stroke-width="20" :percentage="parseFloat(project.reform)")
+        .compare
+          span 周同比
+            i.el-icon-caret-top
+            span {{project.week}}%
+          span 日环比
+            i.el-icon-caret-bottom
+            span {{project.month}}%
+    .ranking(class="shadow")
+      p.title 在施重大风险项目排行
+      .radio
+        el-radio-group(v-model="riskRadio" @change="getRiskData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .risk-chart(ref="risk")
+  .center
+    #map(class="shadow")
+    .trend(class="shadow")
+      p.title 风险走势图
+      .radio
+        el-radio-group(v-model="trendRadio" @change="getTrendData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .trend-chart(ref="trend")
+  .right
+    .safety(class="shadow")
+      p.title 安全管理预警
+      .warning(ref="scrollWrap")
+        .scroll(ref="scroll")
+          p(v-for="item in warningList") {{item.name}}
+            span {{item.num}}
+        //- .scroll
+        //-   p(v-for="item in warningList") {{item.name}}
+        //-     span {{item.num}}
+    .category(class="shadow")
+      p.title 隐患类别统计
+      .radio
+        el-radio-group(v-model="categoryRadio" @change="getCategoryData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .category-chart(ref="category")

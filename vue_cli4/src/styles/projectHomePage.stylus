@@ -1,0 +1,49 @@
+#projectHomePage
+  padding: 0.2rem;
+  .shadow
+    box-shadow 0 .08rem .31rem 0 rgba(0, 0, 0, .1)
+    border-radius .2rem
+    position relative
+    p.title
+      margin 0 .1rem
+      font-size .14rem
+      font-weight 550
+      line-height .35rem
+      padding-left .1rem
+      border-bottom 1px solid #e0e3ec
+    .radio
+      position absolute
+      top 0
+      right .2rem
+      line-height 0.35rem
+  .top
+    height 2.8rem
+    display flex
+    justify-content space-between
+    margin-bottom .2rem
+    > div
+      width 8.3rem
+    .detection
+      .detection-body
+        height calc(100% - .35rem)
+        display flex
+        justify-content space-around
+        align-items center
+    .trouble
+      .trouble-body
+        height calc(100% - .35rem)
+        display flex
+        justify-content space-around
+        align-items center
+  .center
+    height 4.5rem
+    display flex
+    justify-content space-between
+    .category
+      width 4.1rem
+      .category-chart
+        height calc(100% - .35rem)
+    .tendency
+      width: 12.5rem
+      .tendency-chart
+        height calc(100% - .35rem)

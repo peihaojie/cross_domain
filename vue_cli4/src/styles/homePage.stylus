@@ -1,0 +1,113 @@
+#homePage
+  padding .1rem
+  display flex
+  > div
+    flex 1
+    margin-right .1rem
+    min-width 3.2rem
+    &:last-child
+      margin-right 0
+    > div
+      margin-bottom .1rem
+      &:last-child
+        margin-bottom 0
+  .shadow
+    box-shadow 0 .08rem .31rem 0 rgba(0, 0, 0, .1)
+    border-radius .2rem
+    position relative
+    p.title
+      margin 0 .1rem
+      font-size .14rem
+      font-weight 550
+      line-height .35rem
+      padding-left .1rem
+      border-bottom 1px solid #e0e3ec
+    .radio
+      position absolute
+      top 0
+      right .2rem
+      line-height 0.35rem
+  .left
+    .usage-rate
+      height 2rem
+      .usage-rate-chart
+        height calc(100% - .35rem)
+        width 50%
+        display inline-block
+      .project
+        height calc(100% - .35rem)
+        display inline-flex
+        vertical-align top
+        width 50%
+        align-items center
+        flex-wrap wrap
+        padding .3rem 0
+        p
+          line-height .2rem
+          &.on
+            font-weight 550
+    .troubleshoot
+      height 4rem
+      .troubleshoot-item
+        padding 0 .2rem
+        .top
+          padding .1rem 0
+          display flex
+          justify-content space-between
+          .total, .percent
+            line-height .22rem
+            font-size .14rem
+        .compare
+          margin-top .2rem
+          text-align center
+          position relative
+          > span
+            margin-right .1rem
+            .el-icon-caret-top
+              color red
+            .el-icon-caret-bottom
+              color green
+          &:before
+            content: ""
+            position absolute
+            width 100%
+            height 1px
+            top -.1rem
+            left 0
+            background-color #ccc
+    .ranking
+      height 2.5rem
+      .risk-chart
+        height calc(100% - .35rem)
+  .center
+    flex 7rem
+    #map
+      height 6.1rem
+    .trend
+      height 2.5rem
+      .trend-chart
+        height calc(100% - .35rem)
+  .right
+    .safety
+      height 4.1rem
+      .warning
+        height calc(100% - .35rem)
+        overflow-y auto
+        padding-left .2rem
+        &::-webkit-scrollbar
+          display none
+        overflow-y: scroll;
+        scrollbar-color: transparent transparent;
+        scrollbar-track-color: transparent;
+        -ms-scrollbar-track-color: transparent;
+        p
+          line-height .35rem
+          font-size .14rem
+        span
+          margin-left .2rem
+    .category
+      height 4.5rem
+      .category-chart
+        height calc(100% - .35rem)
+  /deep/.el-radio
+    margin-right .1rem

@@ -1,0 +1,88 @@
+.el-row {
+    margin-bottom: 20px;
+}
+.el-col {
+    border-radius: 4px;
+}
+.bg-purple-dark {
+    background: #99a9bf;
+}
+.bg-purple {
+    background: #d3dce6;
+}
+.bg-purple-light {
+    background: #e5e9f2;
+}
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+.left{
+    padding-left: 25px;
+    padding-bottom: 5px;
+}
+.rightMidle{
+    padding-top: 10px;
+    float: right;
+}
+.button{
+    padding-bottom: 5px;
+}
+.img{
+    margin-top: 15px;
+}
+.img p {
+    margin: 5px 0px 5px
+}
+.contenxt{
+    background-color: #f2f2f2;
+    line-height: .3rem;
+    position: relative;
+    height: .6rem;
+}
+.contenxt span{
+    margin-right: 20px
+}
+.head{
+    line-height: 30px;
+    height: 30px;
+    width: 7%;
+    display: inline-block;
+}
+.line{
+    border-top: solid 1px;
+    display: inline-block;
+    height: 5px;
+    width: 93%;
+}
+.el-image{
+    display: flex;
+    left: 8%;
+}
+.el-table__row{
+    height: 80px;
+}
+.data-wrap .table-wrap .table-header-bg{
+    background-color: #516d94;
+    padding: .09rem 0;
+}
+.el-dialog--center .el-dialog__body{
+    padding: 0 22px 28px;
+}
+.el-tag{
+    height: 15px;
+    line-height: 15px
+}
+.picture{
+    padding-left: 65px;
+}
+.picture img{
+    width: 150px;
+    height: 110px;
+    display: inline-block;
+    padding-right: 10px;
+}

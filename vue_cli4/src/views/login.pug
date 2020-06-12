@@ -1,0 +1,20 @@
+#login-wrap
+  .box
+    h1 虎匠科技隐患排查系统
+      .logo
+    .input
+      p 用户登录
+      el-input(v-model="store.username", prefix-icon="el-icon-user", placeholder="请输入账号", @keyup.enter.native="$refs.password.focus()")
+      el-input(ref="password", v-model="store.password", prefix-icon="el-icon-lock", placeholder="请输入密码", show-password, @keyup.enter.native="store.login")
+      el-button(type="primary", @click="store.login") 登录
+  p.copyright 深圳市虎匠科技有限公司 Copyright©2020-2022 版权所有
+//- #login-wrap
+//-   .box
+//-     h1 虎匠科技隐患排查系统
+//-       .logo
+//-     .input
+//-       p 用户登录
+//-       el-input(v-model="$store.state.LoginStore.username", prefix-icon="el-icon-user", placeholder="请输入账号", @keyup.enter.native="$refs.password.focus()")
+//-       el-input(ref="password", v-model="$store.state.LoginStore.password", prefix-icon="el-icon-lock", placeholder="请输入密码", show-password, @keyup.enter.native="store.login")
+//-       el-button(type="primary", @click="store.login") 登录
+//-   p.copyright 深圳市虎匠科技有限公司 Copyright©2020-2022 版权所有

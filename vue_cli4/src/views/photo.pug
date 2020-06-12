@@ -1,0 +1,29 @@
+#photo
+  .search-wrap
+    span 选择日期：
+    el-date-picker(v-model="searchTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" size="small")
+    span 隐患类型：
+    el-select(v-model="selectType" placeholder="请选择类型" clearable size="small")
+      el-option(v-for="item in selectTypeList" :key="item.value" :label="item.label" :value="item.value")
+    span 隐患状态:
+    el-select(v-model="selectState" placeholder="请选择状态" clearable size="small")
+      el-option(v-for="item in selectStateList" :key="item.value" :label="item.label" :value="item.value")
+    span 上传人员:
+    el-input(v-model="selectPeople" placeholder="请输入" clearable size="small" style="width: 200px")
+    span.search(@click="search") 搜索
+  .img-wrap(ref="scroll")
+    img(v-for="item in imgList" v-lazy="item.photo" @click="getImgData(item)")
+  .dialog
+    el-dialog(title="图片详情" :visible.sync="dialog" width="30%")
+      .body
+        img(:src="imgData.url")
+        .text
+          p 项目名称：{{imgData.name}}
+          p 照片来源：隐患来源
+          p 隐患性质：{{imgData.hidden_level}}
+          p 隐患区域：{{imgData.area_name}}
+          p 隐患种类：{{imgData.inspect_task}}
+          p 上传人员：{{imgData.create_name}}
+          p 上传日期：{{imgData.create_on}}
+      span(slot="footer" class="dialog-footer")
+        el-button(type="primary" @click="dialog = false") 确 定

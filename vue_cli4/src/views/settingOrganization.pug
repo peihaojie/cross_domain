@@ -1,0 +1,67 @@
+#settingOrganization-wrap
+  .tree-wrap
+    .button
+      el-button(type="primary" size="small" @click="openDialog('新建公司')") 新建公司
+      el-button(type="primary" size="small" @click="openDialog('新建项目')") 新建项目
+    el-input(v-model="state" placeholder="请输入搜索类别" style="width: 100%" size="small" clearable)
+      template(slot="append")
+        i.el-icon-search
+    el-tree(ref="attrList" :data="store.store.state.SettingOrganizationStore.tree" :props="defaultProps" @node-click="handleNodeClick" highlight-current)
+      span(class="span-ellipsis" slot-scope="{ node, data }")
+        span(:title="node.label") {{ node.label }}
+  .data-wrap
+    .statistics
+      span 组织用户{{store.store.state.SettingOrganizationStore.allTotal}}人
+    .table-search
+      div
+        el-button(type="primary" size="small" @click="openDialog('添加成员')") 添加成员
+        //- el-button(type="primary" size="small" @click="openDialog('添加部门')") 添加部门
+      div
+        span 姓名:
+        el-input(v-model="store.store.state.SettingOrganizationStore.name" placeholder="请输入搜索项" style="width: 200px" size="small" clearable)
+        span 电话:
+        el-input(v-model="store.store.state.SettingOrganizationStore.phone" placeholder="请输入搜索项" style="width: 200px" size="small" clearable)
+        //- span 角色过滤:
+        //- el-select(v-model="store.store.state.SettingOrganizationStore.role" placeholder="请选择角色" size="small" clearable)
+        //-   el-option(v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id")
+        el-button(type="primary" size="small" @click="searchTable") 搜索
+    .table-wrap
+      el-table(ref="table" :data="store.store.state.SettingOrganizationStore.tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :header-row-class-name="headerRow" :header-cell-class-name="headerRow" :cell-class-name="cell" border)
+        el-table-column(type="selection" width="55")
+        el-table-column(prop="name" label="姓名" show-overflow-tooltip)
+        el-table-column(prop="phone" label="手机" show-overflow-tooltip)
+        el-table-column(prop="email" label="邮箱" show-overflow-tooltip)
+        el-table-column(prop="role.name" label="角色" show-overflow-tooltip)
+        el-table-column(prop="station" label="岗位" show-overflow-tooltip)
+        el-table-column(label="操作")
+          template(slot-scope="scope")
+            span.btn(@click="getPeople(scope.row.id)") 修改
+            span.btn(@click="del(scope.row.id)") 删除
+    .page-wrap
+      el-pagination(@current-change="handleCurrentChange" :current-page="store.store.state.SettingOrganizationStore.pageIndex" :page-size="store.store.state.SettingOrganizationStore.pageSize" layout="total, prev, pager, next, jumper" :total="store.store.state.SettingOrganizationStore.total")
+  .add
+    el-dialog(:title="dialogTitle" :visible.sync="dialog" :width="dialogTitle !== '新建项目' ? '500px' : '800px'" :before-close="clear" :top="dialogTitle !== '新建项目' ? '15vh' : '5vh'")
+      ul(v-if="dialogTitle !== '新建项目'")
+        li(v-for="item in dialogTitle === '新建公司' ? company : dialogTitle === '添加成员' || '修改成员' ? member : department" :key="item.name")
+          span {{item.name}}：
+          span.must(v-if="item.must") *
+          span.nomust(v-else)
+          el-input(v-if="!item.list" v-model="item.value" :type="item.textarea ? 'textarea' : item.name === '密码' ? 'password' : 'input'" placeholder="请输入" width="200px" :disabled="(item.name === '账号' || item.name === '密码') && dialogTitle === '修改成员'")
+          el-select(v-else v-model="item.value" placeholder="请选择" :disabled="item.name === '上级组织' || item.name === '组织'" clearable)
+            el-option(v-for="item in item.list" :key="item.id" :label="item.name" :value="item.id")
+          //- el-select(v-else v-model="item.value" placeholder="请选择" disabled)
+          //-   el-option(v-for="item in item.list" :key="item.id" :label="item.name" :value="item.id")
+      ul.project(v-else)
+        li(v-for="item in project" :key="item.name" :class="item.name === '合同工期' || item.name === '实际工期' ? 'line' : item.name === '工程地址' ? 'map' : ''")
+          span {{item.name}}：
+          span.must(v-if="item.must") *
+          span.nomust(v-else)
+          span(v-if="item.name === '工程地址'") {{item.value}}
+          el-input(v-if="!item.list && item.name !== '合同工期' && item.name !== '实际工期' && item.name !== '工程地址'" v-model="item.value" :type="item.textarea ? 'textarea' : 'input'" placeholder="请输入" width="200px")
+          el-select(v-else-if="item.list" v-model="item.value" placeholder="请选择" :disabled="item.name === '上级组织'" clearable)
+            el-option(v-for="item in item.list" :key="item.id" :label="item.name" :value="item.id")
+          el-date-picker(v-else-if="item.name !== '工程地址'" v-model="item.value" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期")
+          #map(v-else)
+      span(slot="footer" class="dialog-footer")
+        el-button(@click="clear") 取 消
+        el-button(type="primary" @click="verify") 确 定

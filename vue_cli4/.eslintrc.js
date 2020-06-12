@@ -1,9 +1,9 @@
 /*
  * @Date         : 2020-06-10 11:42:00
  * @LastEditors  : HaoJie
- * @LastEditTime : 2020-06-11 13:35:11
- * @FilePath     : \vue_cli4\.eslintrc.js
- */ 
+ * @LastEditTime : 2020-06-12 10:51:52
+ * @FilePath     : \.eslintrc.js
+ */
 module.exports = {
   root: true,
   env: {
@@ -18,7 +18,9 @@ module.exports = {
     ecmaVersion: 2020
   },
   "globals": {
-    "$axios": true
+    "$axios": true,
+    "AMap": true,
+    "echarts": true
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -28,5 +30,9 @@ module.exports = {
     'no-extra-semi': 'off',
     'semi': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'eol-last': 'off',
+    'no-comma-dangle': 'off',
+    'comma-dangle': 'off',
+    '@typescript-eslint/camelcase': 'off',
   }
 }

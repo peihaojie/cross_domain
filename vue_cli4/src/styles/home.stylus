@@ -1,0 +1,100 @@
+header-height = 0.8rem;
+#home-wrap
+  height 100%
+  position relative
+  .header
+    height header-height
+    padding 0 .3rem 0 0.24rem
+    // background-image linear-gradient(to right, #516d94, #708af7)
+    background: linear-gradient(to right, #6cc4ff, #489cff);
+    position fixed
+    z-index 8
+    top 0
+    width 100%
+    .name
+      float left
+      position relative
+      padding-left 1.54rem
+      line-height header-height
+      font-size: 0.2rem;
+      color #fff
+      margin-right .2rem
+      &:before
+        content ""
+        position absolute
+        top 0.175rem
+        left 0
+        width 1.22rem
+        height .45rem
+        background-image url('~static/logo-white.png')
+        background-size contain
+        background-repeat no-repeat
+        background-position 50% 50%
+      &:after
+        content ""
+        position absolute
+        top 0.3rem
+        left 1.38rem
+        height: 0.2rem;
+        width: 0.01rem;
+        background-color: #fff;
+    .head-cascader
+      float: left;
+      margin-top: calc(0.4rem - 16px);
+    .el-select
+      margin-left .3rem
+    .el-cascader
+      width 3rem
+    .right
+      float right
+      font-size .2rem
+      color #fff
+      .user
+        display inline-block
+      p
+        display inline-block
+        line-height header-height
+        margin-left .1rem
+      .quit
+        position relative
+        margin-left .3rem
+        cursor pointer
+        &:before
+          content ""
+          position absolute
+          top .325rem
+          left -.2rem
+          width .15rem
+          height .15rem
+          background-image url('~static/quit.png')
+          background-size 100% 100%
+          background-repeat no-repeat
+  .placeholder
+    height header-height
+    width 100%
+  .body
+    display flex
+    height calc(100% - 0.8rem)
+    width 100%
+    position relative
+    .el-menu-item
+      i
+        color: #fff;
+    .el-menu-item
+      color: #fff;
+      font-size: 0.2rem;
+      border-bottom: 0.01rem solid #98c8e7;
+    .el-menu-item.is-active
+      color: #fff !important;
+      background-color: #378dc5 !important;
+    .el-menu-item:focus,.el-menu-item:hover
+      color: #fff !important;
+      background-color: #2d83bb !important;
+    .el-menu:not(.el-menu--collapse)
+      width 2rem
+      height 100%
+      overflow-x: hidden;
+    .router-wrap
+      flex 1
+      height 100%
+      overflow-y auto

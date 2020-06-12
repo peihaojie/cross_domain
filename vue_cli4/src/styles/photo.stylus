@@ -1,0 +1,39 @@
+#photo
+  padding .2rem
+  .search-wrap
+    position relative
+    span
+      margin 0 .1rem
+    .search
+      padding 0 .25rem
+      margin 0
+      color #fff
+      border-radius .05rem
+      background-color #5791e8
+      cursor pointer
+      box-sizing border-box
+      line-height 32px
+      height 100%
+      position absolute
+      right 0
+  .img-wrap
+    margin-top .1rem
+    img
+      height 2rem
+      width 2rem
+      margin 0 .2rem .2rem 0
+      background-size 25%
+      background-image url("~static/loading.gif")
+      background-repeat no-repeat
+      background-position center
+  .dialog
+    .body
+      img
+        width 2rem
+        height 100%
+        margin-right .2rem
+      .text
+        display inline-block
+        font-weight 600
+        font-size .16rem
+        vertical-align top

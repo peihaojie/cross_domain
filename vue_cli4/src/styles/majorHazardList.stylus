@@ -1,0 +1,48 @@
+text-left-padding = 0.12rem
+.main
+    font-size 0.16rem
+    height 100%
+    .title
+        font-size 0.2rem
+        font-weight bold
+        padding 0.2rem 0 0.2rem
+    .list
+        li
+            padding 0.05rem 0.15rem
+            border-bottom 1px solid #ddd
+            &:last-child
+                border-bottom none
+            .info
+                padding-left text-left-padding
+                padding-bottom 0.06rem
+            .label
+                font-weight bold
+                color #000
+                line-height: 0.24rem;
+                position relative
+                &:before
+                    content ""
+                    width 0.06rem
+                    height 0.06rem
+                    border-radius 50%
+                    background #ff833e
+                    position absolute
+                    left -0.12rem
+                    top 0.09rem
+                .text
+                    font-weight normal
+            .sourceOfRisk:before
+                background #f56c6c
+            .place:before
+                background #409eff
+            .accident:before
+                background #ff833e
+            .tense:before
+                background #909399
+            .status:before
+                background #67c23a
+            .measures:before
+                background purple
+            .text
+                line-height 1.5
+                text-indent 2em

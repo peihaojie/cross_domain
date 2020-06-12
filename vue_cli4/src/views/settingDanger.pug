@@ -1,0 +1,55 @@
+#settingDanger-wrap
+  .tree-wrap
+    .button
+      //- el-button(type="primary" size="small" @click="openDialog('新建公司')") 新建公司
+      //- el-button(type="primary" size="small" @click="openDialog('新建项目')") 新建项目
+    el-input(v-model="state" placeholder="请输入搜索类别" style="width: 100%" size="small" clearable)
+      template(slot="append")
+        i.el-icon-search
+    el-tree(ref="attrList" :data="store.store.state.SettingDangerStore.tree" :props="defaultProps" @node-click="handleNodeClick" highlight-current)
+      span(class="span-ellipsis" slot-scope="{ node, data }")
+        span(:title="node.label") {{ node.label }}
+  .data-wrap
+    .statistics
+      //- span 组织用户{{store.store.state.SettingDangerStore.allTotal}}人
+    .table-search
+      div
+        el-button(type="primary" size="small" @click="dialogType='addDanger', openDialog('添加危险源')") 添加危险源
+        el-button(type="primary" size="small" @click="dialogType='del', openDialog('删除')") 删除
+        el-button(type="primary" size="small" @click="dialogType='QR', openDialog('查看二维码')") 查看二维码
+      div
+        //- span 姓名:
+        //- el-input(v-model="name" placeholder="请输入搜索项" style="width: 200px" size="small" clearable)
+        //- span 电话:
+        //- el-input(v-model="phone" placeholder="请输入搜索项" style="width: 200px" size="small" clearable)
+        //- span 角色过滤:
+        //- el-select(v-model="store.store.state.SettingDangerStore.role" placeholder="请选择角色" size="small" clearable)
+        //-   el-option(v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id")
+        el-button(type="primary" size="small" @click="searchTable") 搜索
+    .table-wrap
+      el-table(ref="table" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :header-row-class-name="headerRow" :header-cell-class-name="headerRow" :cell-class-name="cell" border :row-key="getRowKey")
+        el-table-column(type="selection" width="55" :reserve-selection="true")
+        el-table-column(prop="place" label="施工部位" show-overflow-tooltip)
+        el-table-column(prop="sourceOfRisk" label="危险因素" show-overflow-tooltip)
+        el-table-column(prop="accident" label="引发事故" show-overflow-tooltip)
+        el-table-column(prop="measures" label="防范措施" show-overflow-tooltip)
+        el-table-column(label="操作")
+          template(slot-scope="scope")
+            span.btn(@click="getEdit(scope.row.id)") 修改
+            span.btn(@click="delAlone(scope.row.id)") 删除
+    .page-wrap
+      el-pagination(@current-change="handleCurrentChange" :current-page="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total")
+  .add
+    el-dialog(:title="dialogTitle" :visible.sync="dialog" width="800px" :before-close="clear")
+      ul(v-if="dialogType === 'addDanger' || dialogType === 'edit'")
+        li(v-for="item in addDanger" :key="item.name")
+          span {{item.name}}：
+          span.must(v-if="item.must") *
+          span.no-must(v-else)
+          el-input(v-if="!item.list" v-model="item.value" :type="item.textArea ? 'textarea' : 'input'" :rows="4" placeholder="请输入" resize="none")
+      .del(v-if="dialogType === 'del'")
+        p 确定删除选中的危险源吗？
+      img(v-if="dialogType === 'QR'" :src="imgSrc")
+      span(slot="footer" class="dialog-footer" v-if="dialogType !== 'QR'")
+        el-button(@click="clear") 取 消
+        el-button(type="primary" @click="dialogType === 'addDanger' || dialogType === 'edit' ? verify() : getDelList()") 确 定

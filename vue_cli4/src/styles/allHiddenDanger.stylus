@@ -1,0 +1,97 @@
+#allHiddenDanger-wrap
+  height 100%
+  position relative
+  .search-wrap
+    padding 0 .2rem
+    padding-left 0px
+    border-bottom .1rem solid #f7
+    font-size .18rem
+    display block
+    justify-content space-between
+    align-content center
+    .left
+      display block
+      align-items center
+    /deep/ .el-input
+      display inline-block
+      width 1.8rem !important
+      margin 0 .25rem
+    .right
+      display block
+      align-items center
+      float right
+      .search
+        width 1.2rem
+        line-height .4rem
+        text-align center
+        border-radius .02rem
+        background-color #ffd14f
+        border .01rem solid #d4ad40
+        color #ffffff
+        cursor pointer
+        transition all .5s
+        &:hover
+          background-color #d4ad40
+    .button
+        align-items center
+  .botton-wrap
+    padding .1rem .2rem 0
+    font-size 0
+    >div, span > div
+      display inline-block
+      color #0090ff
+      font-size .14rem
+      margin-right .2rem
+      line-height: .3rem
+      border-radius .02rem
+      border 1px solid #0090ff
+      cursor pointer
+      padding 0 .1rem
+      transition all .5s
+      span
+        margin-left .1rem
+      &:hover
+        color #ffffff
+        background-color #0090ff
+  .table-wrap
+    padding .1rem .2rem .2rem
+    // box-sizing content-box
+    height 6.2rem
+    /deep/ .el-table
+      overflow visible
+      .el-table__body-wrapper
+        overflow visible
+      thead th
+        background-color #516d94
+      td, th
+        padding 0
+        font-size .14rem
+        .cell
+          line-height .35rem
+          overflow visible
+    .img-wrap
+      color rgb(64, 158, 255)
+      position relative
+      cursor pointer
+      img
+        position absolute
+        top -1rem
+        left -1.7rem
+        width 1.5rem
+        height 2rem
+        z-index 10
+        display none
+      &:hover
+        img
+          display inline-block
+  .page-wrap
+    font-size 0
+    position absolute
+    left 0
+    right 0
+    bottom .2rem
+    .el-pagination
+      text-align center
+
+
+

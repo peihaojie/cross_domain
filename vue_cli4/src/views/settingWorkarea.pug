@@ -1,0 +1,68 @@
+#settingWorkarea-wrap
+    .tree-wrap
+        .button
+        el-input(v-model="state" placeholder="请输入搜索类别" style="width: 100%" size="small" clearable)
+            template(slot="append")
+                i.el-icon-search
+        el-tree(ref="attrList" :data="store.store.state.SettingOrganizationStore.tree" :props="defaultProps" @node-click="handleNodeClick" highlight-current)
+            span(class="span-ellipsis" slot-scope="{ node, data }")
+                span(:title="node.label") {{ node.label }}
+    .data-wrap
+        .statistics
+            span 工区数量{{store.store.state.SettingWorkareaStore.total}}个
+        .table-search
+            div
+                el-button(type="primary" size="small" @click="openDialog('添加工区')") 添加工区
+            div
+                span 搜索:
+                el-input(v-model="store.store.state.SettingWorkareaStore.searchTable" placeholder="搜索工区，负责人，手机" style="width: 200px" size="small" clearable)
+                el-button(type="primary" size="small" @click="searchTable") 搜索
+        .table-wrap
+            el-table(ref="table" :data="store.store.state.SettingWorkareaStore.tableData"  tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :header-row-class-name="headerRow" :header-cell-class-name="headerRow" :cell-class-name="cell" border)
+                el-table-column(type="selection" width="55")
+                el-table-column(prop="workName" label="工区" show-overflow-tooltip)
+                el-table-column(prop="dutyPerson" label="负责人" show-overflow-tooltip)
+                el-table-column(prop="phone" label="手机" show-overflow-tooltip)
+                el-table-column(prop="station" label="岗位" show-overflow-tooltip)
+                el-table-column(label="操作")
+                    template(slot-scope="scope")
+                        span.btn(@click="openDialog('修改',scope.row)") 修改
+                        span.btn(@click="del(scope.row.id)") 删除
+                        //el-popover(placement="top" width="160" v-model="visible")
+                        //    p 确定删除么？
+                        //    div(style="text-align: right; margin: 0")
+                        //        //span.btn(@click="del(scope.row.id)") 删除
+                        //        el-button(size="mini" type="text" @click="visible = false") 取消
+                        //        el-button(type="primary" size="mini" @click="del(scope.row.id)") 确定
+                        //    span.btn(slot="reference") 删除
+        .page-wrap
+            el-pagination(@current-change="handleCurrentChange" :current-page="store.store.state.SettingWorkareaStore.pageNumber" :page-size="store.store.state.SettingWorkareaStore.pageSize" layout="total, prev, pager, next, jumper" :total="store.store.state.SettingWorkareaStore.total")
+    .add
+        el-dialog(style="width:30% , top:15vh" title="添加工区" :visible.sync="dialog"  :before-close="clear")
+            ul
+                //li(v-for="item in member" :key="item.name")
+                //    span {{item.name}}：
+                //    span.must(v-if="item.must") *
+                //    span.nomust(v-else)
+                //    el-input(v-if="!item.list" v-model="item.value" placeholder="请输入" width="200px" )
+                //    el-select(v-else-if="item.name !== '上级组织'" v-model="item.value" placeholder="请选择" clearable :disabled="ifDisabled!=null")
+                //        el-option(v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id" )
+                li
+                    span 工区名称：
+                    span.must *
+                    el-input(v-model="store.store.state.SettingWorkareaStore.workName" placeholder="请输入" width="200px" )
+                li
+                    span 负责人员：
+                    span.nomust
+                    el-select(v-model="store.store.state.SettingWorkareaStore.dutyPerson" placeholder="请选择")
+                        el-option(v-for="item in store.store.state.SettingWorkareaStore.managerList" :key="item.id" :label="item.name" :value="item.id" )
+                    //el-input(v-model="store.store.state.SettingWorkareaStore.dutyPerson" placeholder="请输入" width="200px" )
+                li
+                    span 选择上级：
+                    span.nomust
+                    //el-select(v-model="store.store.state.SettingWorkareaStore.projectId" placeholder="请选择" disabled)
+                    //    el-option(v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id" )
+                    el-input(v-model="store.store.state.SettingWorkareaStore.projectName" :placeholder="store.store.state.SettingWorkareaStore.projectId"  width="200px" disabled)
+            span(slot="footer" class="dialog-footer")
+                el-button(@click="clear") 取 消
+                el-button(type="primary" @click="verify") 确 定

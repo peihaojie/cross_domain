@@ -1,0 +1,49 @@
+#home-wrap
+  .header
+    p.name 虎匠隐患排查系统
+    el-cascader.head-cascader(v-show="showSelect" v-model="company" :options="companyList" :props="{ checkStrictly: true }" size="small" :show-all-levels="false" @change="companyChange" filterable)
+    .right
+      .user
+        i.el-icon-user
+        p {{userName}}
+      p.quit(@click="quit") 退出
+  .placeholder
+  .body
+    el-menu(:default-active="path" class="el-menu" background-color="#54a4d7" text-color="#fff" active-text-color="#ffd04b" router @select="handleSelect")
+      el-menu-item(index="/home/homepage" v-show="homepage === 'homepage'")
+        i.el-icon-s-home
+        span(slot="title") 首页
+      el-menu-item(index="/home/projectHomepage" v-show="homepage === 'projectHomepage'")
+        i.el-icon-s-home
+        span(slot="title") 首页
+      el-menu-item(index="/home/photo")
+        i.el-icon-picture-outline
+        span(slot="title") 安全相册
+      el-menu-item(index="/home/allHiddenDanger")
+        i.el-icon-menu
+        span(slot="title") 隐患治理
+      el-menu-item(index="/home/defecttreatment")
+        i.el-icon-document
+        span(slot="title") 安全隐患库
+      el-menu-item(index="/home/cultivate")
+        i.el-icon-s-platform
+        span(slot="title") 安全交底
+      el-menu-item(index="/home/securityLog")
+        i.el-icon-s-claim
+        span(slot="title") 安全日志
+      el-submenu(index="设置")
+        template(slot="title")
+          i.el-icon-s-tools
+          span(slot="title") 设置
+        el-menu-item-group
+          el-menu-item(index="/home/settingOrganization")
+            //- i.el-icon-s-tools
+            span(slot="title") 企业组织
+          el-menu-item(index="/home/settingWorkarea")
+            //- i.el-icon-s-tools
+            span(slot="title") 工区管理
+          el-menu-item(index="/home/settingDanger")
+            //- i.el-icon-s-tools
+            span(slot="title") 危险源
+    .router-wrap
+      router-view(v-if="isShow")

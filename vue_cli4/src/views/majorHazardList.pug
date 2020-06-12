@@ -1,0 +1,22 @@
+.main
+    h3.title.tac 重大危险源
+    ol.list
+        li(v-for="item in list", :key="item.id")
+            .info
+                .label.sourceOfRisk 危险源：
+                .text(v-text="item.sourceOfRisk")
+            .info
+                .label.place 活动/工序/场所：
+                .text(v-text="item.place")
+            .info
+                .label.accident 可能导致的事故：
+                .text(v-text="item.accident")
+            .info
+                .label.tense 时态：
+                    span.text(v-text="item.tense")
+            .info
+                .label.status 状态：
+                    span.text(v-text="item.status")
+            .info
+                .label.measures 控制措施：
+                .text(v-text="item.measures")

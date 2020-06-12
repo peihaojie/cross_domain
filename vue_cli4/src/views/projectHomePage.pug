@@ -1,0 +1,29 @@
+#projectHomePage
+  .top
+    .detection(class="shadow")
+      p.title 检测统计
+      .detection-body
+        p 检查总数 {{project.examine}}
+        p 隐患总数 {{project.danger}}
+        p 重大隐患 {{project.great}}
+    .trouble(class="shadow")
+      p.title 隐患排查统计
+      .trouble-body
+        p 项目整改率 {{project.reform}}%
+        p 项目及时整改率 {{project.immediatelyReform}}%
+        p 项目及时复查率 {{project.immediatelyReview}}%
+  .center
+    .category(class="shadow")
+      p.title 隐患类别统计
+      .radio
+        el-radio-group(v-model="categoryRadio" @change="getCategoryData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .category-chart(ref="category")
+    .tendency(class="shadow")
+      p.title 隐患趋势图
+      .radio
+        el-radio-group(v-model="tendencyRadio" @change="getTendencyData")
+          el-radio(:label="1") 本周
+          el-radio(:label="2") 本月
+      .tendency-chart(ref="tendency")

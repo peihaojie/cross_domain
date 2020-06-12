@@ -1,0 +1,93 @@
+#allHiddenDanger-wrap
+  .search-wrap
+    .left(v-if="pullDown==false")
+      table(width="100%", height="5px")
+        tr
+          td
+      el-date-picker(v-model="store.store.state.AllHiddenDangerStore.dateModel" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期")
+      .rightMidle
+        el-button( size="mini"  @click="searchData()") 搜索
+        el-button( size="mini"  @click="clearData()") 重置
+        el-button( size="mini" icon="el-icon-arrow-down" @click="changeItem()" v-if="item ==false")
+        el-button( size="mini" icon="el-icon-arrow-up" @click="changeItem()" v-else)
+    .button(style="display:show"  v-else)
+      .left
+        table(width="100%", height="5px")
+          tr
+            td
+        el-date-picker(v-model="store.store.state.AllHiddenDangerStore.dateModel" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期")
+      el-input(v-model="value12" clearable placeholder="全部组织")
+      el-select(v-model="value1" filterable  placeholder="超时状态：全部")
+        el-option(v-for="item in timeOut" :key="item.value" :label="item.label" :value="item.value")
+      el-select(v-model="store.store.state.AllHiddenDangerStore.hazardLevel" clearable placeholder="事故隐患：全部")
+        el-option(v-for="item in accidentLevel" :key="item.value" :label="item.label" :value="item.value")
+      el-select(v-model="store.store.state.AllHiddenDangerStore.inspectionResult" clearable placeholder="检查结果：全部")
+        el-option(v-for="item in checkResult" :key="item.value" :label="item.label" :value="item.value")
+      el-select(v-model="store.store.state.AllHiddenDangerStore.inspectionType" clearable placeholder="检查类型：全部")
+        el-option(v-for="item in checkType" :key="item.value" :label="item.label" :value="item.value")
+      el-input(v-model="store.store.state.AllHiddenDangerStore.inspector" clearable placeholder="检查人：全部")
+      .rightMidle
+        el-button( size="mini"  @click="searchData()") 搜索
+        el-button( size="mini"  @click="clearData()") 重置
+        el-button( size="mini" icon="el-icon-arrow-down" @click="changeItem()" v-if="item == false")
+        el-button( size="mini" icon="el-icon-arrow-up" @click="changeItem()" v-else)
+  .table-wrap(v-loading="" element-loading-text="拼命加载中...")
+    el-table(:data="store.store.state.AllHiddenDangerStore.tableData" ref="table", stripe, width="100%")
+      el-table-column(type="selection" width="40")
+      el-table-column(type="index" label="序号" width="70", :index="getIndex")
+      el-table-column(prop="inspectionResult" label="检查结果" width="")
+        template(slot-scope="scope")
+          p() {{scope.row.inspectionResult === 1 ? '合格' : scope.row.inspectionResult === 2 ? '待整改' : '待复查' }}
+      el-table-column(prop="projectName" label="项目名称" width="")
+      el-table-column(prop="inspector" label="检查人" )
+        template(slot-scope="scope")
+          p(style="line-height: 20px;") {{scope.row.inspector}}
+          p(style="line-height: 20px;") 检查时间：
+          p(style="line-height: 20px;") {{scope.row.inspectionTime }}
+      el-table-column(prop="hazardLevel" label="隐患信息" width="400" )
+        template(slot-scope="scope")
+          el-tag(:type="scope.row.hazardLevel === 1 ? 'info' : 'danger'" disable-transitions) {{scope.row.hazardLevel === 1 ? '一般':'重大' }}
+          p(style="white-space: nowrap; display: inline-block; width: 250px ;text-overflow: ellipsis; overflow: hidden; line-height: 13px;" :title='scope.row.dangerInformation') {{scope.row.dangerInformation}}
+          p(style="white-space: nowrap; display: inline-block; width: 350px ;text-overflow: ellipsis; overflow: hidden;" :title="scope.row.subcontractor") {{scope.row.subcontractor}}
+      el-table-column(prop="workRegion" label="工区" show-overflow-tooltip )
+      el-table-column(prop="rectifiedBy" label="整改人" show-overflow-tooltip )
+      el-table-column(prop="reviewedBy" label="复查人" show-overflow-tooltip )
+      el-table-column(prop="inspectionType" label="检查类型" show-overflow-tooltip )
+      el-table-column(label="操作" show-overflow-tooltip )
+        template(slot-scope="scope")
+          span(class="img-wrap" style="color: #409eff; position: relative" @click="details(scope.row.id)") 查看详情
+  .page-wrap
+    el-pagination(@current-change="handleCurrentChange", :current-page="store.store.state.AllHiddenDangerStore.pageNumber", :page-size="store.store.state.AllHiddenDangerStore.pageSize" layout="total, prev, pager, next, jumper", :total="store.store.state.AllHiddenDangerStore.totalPage")
+  el-dialog( title="查看详情" :visible.sync="store.store.state.AllHiddenDangerStore.centerDialogVisible" center)
+    div(v-for="item in store.store.state.AllHiddenDangerStore.listData")
+      .head() {{item.recordType === 1 ?  '隐患记录' : item.recordType === 2 ? '整改记录': '复查记录'  }}
+      .line
+      .contenxt
+        div(style="position: absolute; left: 1%;")
+          span(v-if="item.recordType===1") 待查结果：{{item.inspectionResult === 1 ? '合格' : item.inspectionResult === 2 ? '待整改' : '待复查' }}
+          span(v-else-if="item.recordType===2") 整改状态：{{item.inspectionResult === 1 ? '合格' : item.inspectionResult === 2 ? '待整改' : '待复查' }}
+          span(v-else) 复查状态：{{item.inspectionResult === 1 ? '合格' : item.inspectionResult === 2 ? '待整改' : '待复查' }}
+        div(style="position: absolute; left: 15%;")
+          span(v-if="item.recordType===1") 检查时间：{{item.inspectionTime}}
+          span(v-else) 整改时间：{{item.inspectionTime}}
+        div(style="position: absolute; left: 1%; top: 50%;")
+          span(v-if="item.recordType===1") 检查人：{{item.inspector}}
+          span(v-else-if="item.recordType===2") 整改人：{{item.inspector}}
+          span(v-else) 复查人：{{item.inspector}}
+        div(style="position: absolute; left: 15%; top: 50%;" v-if="item.dutyRegion")
+          span 责任区域：{{item.dutyRegion}}
+      .img(v-if="item.recordType===1")
+        p 项目名称：{{item.projectName}}
+        p 隐患明细：{{item.dangerDetails}}
+        p 检查类型：{{item.inspectionType}}
+        p 分包单位：{{item.subcontractor}}
+        p &emsp;整改人：{{item.rectifiedBy}}
+        p 整改时限：{{item.rectificationTime}}
+        p 相关照片：
+          .picture
+            img(v-for="index in item.urls" :src="index")
+      .img(v-else)
+        p &emsp;&emsp;说明：{{item.description}}
+        p 相关照片：
+          .picture
+            img(v-for="index in item.urls" :src="index")
